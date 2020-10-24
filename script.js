@@ -7,21 +7,19 @@ const loader = document.getElementById('loader');
 
 let quotes = [];
 
-// Show Loading
-function loading() {
+function showLoadingSpinner() {
     loader.hidden = false;
     quoteContainer.hidden = true;
 }
 
-// Hide Loading
-function complete() {
+function removeLoadingSpinner() {
     quoteContainer.hidden = false;
     loader.hidden = true;
 }
 
 // Show New Quote
 function newQuote() {
-    loading();
+    showLoadingSpinner();
     // Pick a random quote from apiQuotes array
     const quote = quotes[Math.floor(Math.random() *  quotes.length)];
     // Check if Author field is blank and replace it with 'Unknown'
@@ -38,7 +36,7 @@ function newQuote() {
     }
     // Set Quote, Hide Loader
     quoteText.textContent = quote.text;
-    complete();
+    removeLoadingSpinner();
 }
 
 
@@ -48,7 +46,7 @@ If fetch request works, get Quote from API.
 If fetch request does not work, get quote from local Quotes (see: quote.js)
 */
 async function getQuotes() {
-    loading();
+    showLoadingSpinner();
     const apiUrl = 'https://type.fit/api/quotes';
     try {
         const response = await fetch(apiUrl);
